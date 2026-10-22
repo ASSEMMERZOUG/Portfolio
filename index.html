@@ -221,6 +221,8 @@ h3{font-size:1.14rem;font-weight:600;line-height:1.3}
   background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
   padding:26px;display:flex;flex-direction:column;gap:14px;
 }
+a.chip{text-decoration:none;color:inherit;display:inline-block}
+a.chip:hover{border-color:var(--accent);color:var(--accent)}
 .card .tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;color:var(--accent);text-transform:uppercase}
 .card p{color:var(--muted);font-size:.94rem;flex:1}
 .card .covers{display:flex;flex-wrap:wrap;gap:6px}
@@ -462,9 +464,9 @@ h3{font-size:1.14rem;font-weight:600;line-height:1.3}
       </div>
       <p class="desc">Every retired HackTheBox machine I solve is written up as a proper pentest report — reconnaissance, vulnerability identification, exploitation, privilege escalation, and remediation — with screenshots. The same structure I use for client work.</p>
       <div class="machines">
-        <span class="chip">TwoMillion</span><span class="chip">Cap</span><span class="chip">CCTV</span><span class="chip">Expressway</span><span class="chip">Facts</span><span class="chip">Fireflow</span><span class="chip">Nexus</span><span class="chip">Orion</span><span class="chip">Reactor</span><span class="chip">Soulmate</span><span class="chip">Support</span><span class="chip">VariaType</span><span class="chip">WingData</span>
+        <a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/devhub/devhub_pentest_report.pdf" target="_blank" rel="noopener">DevHub PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/principal/principal_pentest_report.pdf" target="_blank" rel="noopener">Principal PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/fireflow/fireflow_pentest_report.pdf" target="_blank" rel="noopener">Fireflow PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/reactor/reactor_pentest_report.pdf" target="_blank" rel="noopener">Reactor PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/wingdata/wingdata_pentest_report.pdf" target="_blank" rel="noopener">WingData PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/nexus/nexus_pentest_report.pdf" target="_blank" rel="noopener">Nexus PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/orion/orion_pentest_report.pdf" target="_blank" rel="noopener">Orion PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/variaType/variaType_pentest_report.pdf" target="_blank" rel="noopener">VariaType PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/facts/facts_pentest_report.pdf" target="_blank" rel="noopener">Facts PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/cctv/cctv_pentest_report.pdf" target="_blank" rel="noopener">CCTV PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/support/support_pentest_report.pdf" target="_blank" rel="noopener">Support PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/TwoMillion/TwoMillion_pentest_report.pdf" target="_blank" rel="noopener">TwoMillion PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/cap/cap_pentest_report.pdf" target="_blank" rel="noopener">Cap PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/expressway/expressway_pentest_report.pdf" target="_blank" rel="noopener">Expressway PDF</a><a class="chip" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/soulmate/soulmate_pentest_report.pdf" target="_blank" rel="noopener">Soulmate PDF</a>
       </div>
-      <a class="btn btn-primary" style="margin-top:22px" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/fireflow/Fireflow_Pentest_Report.pdf" target="_blank" rel="noopener">Read a sample client report (PDF) ↗</a>
+      <a class="btn btn-primary" style="margin-top:22px" href="https://raw.githubusercontent.com/ASSEMMERZOUG/ctf-writeups/master/hackthebox/devhub/devhub_pentest_report.pdf" target="_blank" rel="noopener">Read the newest client report (PDF) ↗</a>
     </div>
 
     <div class="work-grid">
@@ -488,6 +490,13 @@ h3{font-size:1.14rem;font-weight:600;line-height:1.3}
         <div class="repo">dsa-for-hackers</div>
         <p>Data structures &amp; algorithms explained for web pentesters — diagrams, Python, and hacking context.</p>
         <a class="work-link" href="https://github.com/ASSEMMERZOUG/dsa-for-hackers" target="_blank" rel="noopener">View repo ↗</a>
+      </div>
+      <div class="card">
+        <span class="tag">Tool</span>
+        <h3>pdfsmith</h3>
+        <div class="repo">pdfsmith</div>
+        <p>The report engine behind every PDF above: a zero-dependency Python library that turns structured findings into a client-ready document. No LaTeX, no Word, no browser.</p>
+        <a class="work-link" href="https://github.com/ASSEMMERZOUG/pdfsmith" target="_blank" rel="noopener">View repo ↗</a>
       </div>
       <div class="card">
         <span class="tag">Academic</span>
